@@ -82,36 +82,37 @@
       gap: 1.5rem;
     }
 
-    .brand {
+    .brand-group {
       display: inline-flex;
       align-items: center;
-      gap: 0.85rem;
-      text-decoration: none;
+      gap: 0.65rem;
       min-width: 0;
     }
 
-    .brand img {
-      width: 44px;
-      height: 44px;
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: clamp(54px, 5.2vw, 76px);
+      min-width: 48px;
+      line-height: 0;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: auto;
       object-fit: contain;
-      flex: 0 0 auto;
     }
 
-    .brand strong {
-      display: block;
+    .brand {
+      display: inline-block;
+      text-decoration: none;
+      min-width: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.25rem, 2vw, 1.85rem);
+      font-weight: 400;
+      line-height: 1;
       color: var(--ink);
-      font-size: clamp(0.92rem, 0.9rem + 0.18vw, 1.05rem);
-      line-height: 1.1;
-      font-weight: 600;
-      text-transform: uppercase;
-    }
-
-    .tagline {
-      display: block;
-      color: var(--muted);
-      font-size: 0.72rem;
-      line-height: 1.2;
-      margin-top: 0.15rem;
     }
 
     .nav {
@@ -413,88 +414,105 @@
       font-size: 0.78rem;
     }
 
-    dialog {
-      width: min(1100px, calc(100% - 32px));
-      max-height: min(88vh, 900px);
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      max-width: none;
+      height: 100dvh;
+      max-height: none;
+      margin: 0;
       border: 0;
       padding: 0;
-      background: #ffffff;
-      color: var(--ink);
-      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
-    }
-
-    dialog::backdrop {
-      background: rgba(20, 20, 20, 0.55);
-      backdrop-filter: blur(5px);
-    }
-
-    .dialog-shell {
-      display: grid;
-      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
-      max-height: min(88vh, 900px);
+      background: #171719;
+      color: #ffffff;
       overflow: hidden;
     }
 
-    .dialog-copy {
-      padding: clamp(1.2rem, 3vw, 2.2rem);
-      border-right: 1px solid var(--line);
+    .lightbox::backdrop {
+      background: #171719;
     }
 
-    .dialog-copy h2 {
-      margin: 0 0 1rem;
-      font-family: "Instrument Serif", Georgia, serif;
-      font-size: clamp(1.35rem, 2.4vw, 2.05rem);
-      line-height: 1.06;
-      font-weight: 400;
-    }
-
-    .dialog-copy p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .dialog-copy p + p {
-      margin-top: 0.8rem;
-      color: #303030;
-    }
-
-    .dialog-close {
-      appearance: none;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #ffffff;
-      color: #111111;
-      cursor: pointer;
-      font: inherit;
-      margin-top: 1.5rem;
-      min-height: 38px;
-      padding: 0.45rem 0.9rem;
-    }
-
-    .dialog-close:hover,
-    .dialog-close:focus-visible {
-      border-color: #111111;
-    }
-
-    .dialog-gallery {
+    .lightbox-shell {
+      position: relative;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1px;
-      overflow: auto;
-      background: var(--line);
-    }
-
-    .dialog-gallery img {
+      place-items: center;
       width: 100%;
       height: 100%;
-      min-height: 230px;
-      object-fit: cover;
-      background: var(--soft);
+      overflow: hidden;
     }
 
-    .dialog-gallery img:first-child {
-      grid-column: 1 / -1;
-      max-height: 620px;
+    .lightbox-image {
+      width: auto;
+      height: auto;
+      max-width: 95vw;
+      max-height: 95dvh;
+      object-fit: contain;
+      background: #171719;
+    }
+
+    .lightbox-counter {
+      position: absolute;
+      top: max(1rem, env(safe-area-inset-top));
+      left: max(1rem, env(safe-area-inset-left));
+      z-index: 2;
+      font-size: 0.95rem;
+      line-height: 1;
+      color: rgba(255, 255, 255, 0.94);
+    }
+
+    .lightbox-button {
+      position: absolute;
+      z-index: 3;
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(10, 10, 10, 0.28);
+      color: #ffffff;
+      cursor: pointer;
+      font-family: Arial, sans-serif;
+      font-size: 2.4rem;
+      line-height: 1;
+      transition: background 180ms ease, transform 180ms ease;
+    }
+
+    .lightbox-button:hover,
+    .lightbox-button:focus-visible {
+      background: rgba(10, 10, 10, 0.48);
+      transform: scale(1.04);
+    }
+
+    .lightbox-button.prev {
+      left: max(1rem, env(safe-area-inset-left));
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-button.prev:hover,
+    .lightbox-button.prev:focus-visible {
+      transform: translateY(-50%) scale(1.04);
+    }
+
+    .lightbox-button.next {
+      right: max(1rem, env(safe-area-inset-right));
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox-button.next:hover,
+    .lightbox-button.next:focus-visible {
+      transform: translateY(-50%) scale(1.04);
+    }
+
+    .lightbox-button.close {
+      top: max(0.85rem, env(safe-area-inset-top));
+      right: max(1rem, env(safe-area-inset-right));
+      width: 42px;
+      height: 42px;
+      font-size: 1.75rem;
     }
 
     :focus-visible {
@@ -535,15 +553,6 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      .dialog-shell {
-        grid-template-columns: 1fr;
-        overflow: auto;
-      }
-
-      .dialog-copy {
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
-      }
     }
 
     @media (max-width: 680px) {
@@ -554,13 +563,17 @@
         align-items: flex-start;
       }
 
-      .brand img {
-        width: 36px;
-        height: 36px;
+      .brand {
+        font-size: 1.22rem;
       }
 
-      .brand-text {
-        display: none;
+      .brand-group {
+        gap: 0.45rem;
+      }
+
+      .brand-logo {
+        width: 46px;
+        min-width: 42px;
       }
 
       .nav {
@@ -602,12 +615,15 @@
         padding-right: 0;
       }
 
-      .dialog-gallery {
-        grid-template-columns: 1fr;
+      .lightbox-button {
+        width: 42px;
+        height: 42px;
+        font-size: 2rem;
       }
 
-      .dialog-gallery img {
-        min-height: 210px;
+      .lightbox-image {
+        max-width: 96vw;
+        max-height: 92dvh;
       }
     }
 
@@ -627,13 +643,12 @@
 
   <header class="site-header">
     <div class="header-inner">
-      <a class="brand" href="#top" aria-label="Arch-palmanzar">
-        <img src="../logo.png" data-fallback="https://palmanzar.com/logo.png" alt="Arch-palmanzar logo">
-          <span class="brand-text">
-          <strong>Arch-palmanzar</strong>
-          <span class="tagline">Arquitectura y visualización</span>
-        </span>
-      </a>
+      <div class="brand-group">
+        <a class="brand-logo" href="#top" aria-label="Inicio">
+          <img src="../logo-white.png" alt="Arch-palmanzar logo">
+        </a>
+        <a class="brand" href="#top" aria-label="Arch Palmanzar">Arch Palmanzar</a>
+      </div>
 
       <nav class="nav" aria-label="Principal">
         <a href="#work">Obras</a>
@@ -807,26 +822,28 @@
     <span>Arch-palmanzar</span> / <span>&copy; 2026 Enrique Eusebio Landestoy</span>
   </footer>
 
-  <dialog id="project-dialog" aria-labelledby="dialog-title">
-    <div class="dialog-shell">
-      <div class="dialog-copy">
-        <h2 id="dialog-title"></h2>
-        <p id="dialog-meta"></p>
-        <p id="dialog-credit"></p>
-        <button class="dialog-close" type="button">Cerrar</button>
-      </div>
-      <div class="dialog-gallery" id="dialog-gallery"></div>
+  <dialog class="lightbox" id="project-dialog" aria-label="Galería de imágenes">
+    <div class="lightbox-shell">
+      <span class="lightbox-counter" id="lightbox-counter">1 / 1</span>
+      <button class="lightbox-button close" type="button" aria-label="Cerrar">×</button>
+      <button class="lightbox-button prev" type="button" aria-label="Imagen anterior">‹</button>
+      <img class="lightbox-image" id="lightbox-image" alt="">
+      <button class="lightbox-button next" type="button" aria-label="Imagen siguiente">›</button>
     </div>
   </dialog>
 
   <script>
     const hostedRoot = "https://palmanzar.com";
     const dialog = document.getElementById("project-dialog");
-    const dialogTitle = document.getElementById("dialog-title");
-    const dialogMeta = document.getElementById("dialog-meta");
-    const dialogCredit = document.getElementById("dialog-credit");
-    const dialogGallery = document.getElementById("dialog-gallery");
-    const closeButton = dialog.querySelector(".dialog-close");
+    const lightboxImage = document.getElementById("lightbox-image");
+    const lightboxCounter = document.getElementById("lightbox-counter");
+    const closeButton = dialog.querySelector(".lightbox-button.close");
+    const prevButton = dialog.querySelector(".lightbox-button.prev");
+    const nextButton = dialog.querySelector(".lightbox-button.next");
+    const slideDelay = 7000;
+    let activeImages = [];
+    let activeIndex = 0;
+    let slideTimer = 0;
     let lastActiveLink = null;
 
     function fallbackImage(image) {
@@ -836,45 +853,79 @@
       image.src = fallback;
     }
 
+    function stopAutoSlide() {
+      window.clearInterval(slideTimer);
+      slideTimer = 0;
+    }
+
+    function startAutoSlide() {
+      stopAutoSlide();
+      if (activeImages.length <= 1) return;
+      slideTimer = window.setInterval(() => showSlide(activeIndex + 1), slideDelay);
+    }
+
+    function showSlide(index) {
+      if (!activeImages.length) return;
+      activeIndex = (index + activeImages.length) % activeImages.length;
+      const slide = activeImages[activeIndex];
+      lightboxImage.src = slide.src;
+      lightboxImage.dataset.fallback = slide.fallback;
+      lightboxImage.dataset.fallbackLoaded = "";
+      lightboxImage.alt = slide.alt;
+      lightboxCounter.textContent = `${activeIndex + 1} / ${activeImages.length}`;
+    }
+
+    function moveSlide(direction) {
+      showSlide(activeIndex + direction);
+      startAutoSlide();
+    }
+
     document.querySelectorAll("img[data-fallback]").forEach((image) => {
       image.addEventListener("error", () => fallbackImage(image), { once: true });
     });
+
+    lightboxImage.addEventListener("error", () => fallbackImage(lightboxImage));
 
     document.querySelectorAll(".project-link").forEach((link) => {
       link.addEventListener("click", (event) => {
         event.preventDefault();
         const card = link.closest(".project-card");
         lastActiveLink = link;
-        dialogTitle.textContent = card.dataset.title;
-        dialogMeta.textContent = card.dataset.meta;
-        dialogCredit.textContent = card.dataset.credit;
-        dialogGallery.replaceChildren();
-
-        card.dataset.images.split(",").forEach((file, index) => {
-          const image = document.createElement("img");
-          const localSrc = `../iGalery/${card.dataset.folder}/${file}`;
-          image.src = localSrc;
-          image.dataset.fallback = `${hostedRoot}/iGalery/${card.dataset.folder}/${file}`;
-          image.alt = `${card.dataset.title} - imagen ${index + 1}`;
-          image.loading = index === 0 ? "eager" : "lazy";
-          image.addEventListener("error", () => fallbackImage(image), { once: true });
-          dialogGallery.append(image);
-        });
+        activeImages = card.dataset.images.split(",").map((file, index) => ({
+          src: `../iGalery/${card.dataset.folder}/${file}`,
+          fallback: `${hostedRoot}/iGalery/${card.dataset.folder}/${file}`,
+          alt: `${card.dataset.title} - imagen ${index + 1}`
+        }));
+        showSlide(0);
 
         if (typeof dialog.showModal === "function") {
           dialog.showModal();
         } else {
           dialog.setAttribute("open", "");
         }
+        startAutoSlide();
       });
     });
 
     closeButton.addEventListener("click", () => dialog.close());
+    prevButton.addEventListener("click", () => moveSlide(-1));
+    nextButton.addEventListener("click", () => moveSlide(1));
     dialog.addEventListener("click", (event) => {
       if (event.target === dialog) dialog.close();
     });
     dialog.addEventListener("close", () => {
+      stopAutoSlide();
       if (lastActiveLink) lastActiveLink.focus();
+    });
+    dialog.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        moveSlide(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        moveSlide(1);
+      }
     });
 
     document.querySelectorAll("[data-filter]").forEach((button) => {
