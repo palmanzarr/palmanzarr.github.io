@@ -1,0 +1,893 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portafolio de arquitectura, render, fotogrametría, recorridos virtuales y construcciones civiles de Arch-palmanzar.">
+  <title>Arch-palmanzar | Portafolio v2</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --page: #ffffff;
+      --ink: #151515;
+      --muted: #666666;
+      --line: #dddddd;
+      --soft: #f5f5f2;
+      --focus: #91734d;
+      --max: 1420px;
+      color-scheme: light;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Manrope, "Aptos", "Segoe UI", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 20;
+      transform: translateY(-150%);
+      background: var(--ink);
+      color: var(--page);
+      padding: 0.65rem 0.85rem;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+    }
+
+    .header-inner {
+      width: min(100% - 32px, var(--max));
+      min-height: 78px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+      text-decoration: none;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 44px;
+      height: 44px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand strong {
+      display: block;
+      color: var(--ink);
+      font-size: clamp(0.92rem, 0.9rem + 0.18vw, 1.05rem);
+      line-height: 1.1;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .tagline {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      line-height: 1.2;
+      margin-top: 0.15rem;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: clamp(0.8rem, 2vw, 2rem);
+      color: #303030;
+      font-size: 0.84rem;
+    }
+
+    .nav a {
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      color: #000000;
+      text-decoration: underline;
+      text-underline-offset: 0.25em;
+    }
+
+    main {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(260px, 0.55fr);
+      gap: clamp(2rem, 6vw, 7rem);
+      padding: clamp(3.5rem, 8vw, 8rem) 0 clamp(2rem, 5vw, 4rem);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--muted);
+      font-size: 0.76rem;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 13ch;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(2.1rem, 6.6vw, 5.4rem);
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .intro-copy {
+      align-self: end;
+      color: #2f2f2f;
+      font-size: clamp(0.96rem, 0.92rem + 0.18vw, 1.08rem);
+    }
+
+    .intro-copy p {
+      margin: 0;
+    }
+
+    .intro-copy p + p {
+      margin-top: 1.2rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: clamp(2rem, 5vw, 4rem) 0 1.35rem;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.45rem, 2.1vw, 2.25rem);
+      line-height: 1.05;
+      font-weight: 400;
+    }
+
+    .section-head p {
+      margin: 0;
+      max-width: 34rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      text-align: right;
+    }
+
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin: 0 0 clamp(1.4rem, 3vw, 2.3rem);
+    }
+
+    .filter-bar button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: #222222;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.8rem;
+      min-height: 36px;
+      padding: 0.45rem 0.85rem;
+    }
+
+    .filter-bar button:hover,
+    .filter-bar button:focus-visible,
+    .filter-bar button[aria-pressed="true"] {
+      border-color: #222222;
+      background: #222222;
+      color: #ffffff;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(1.4rem, 3.2vw, 3.2rem) clamp(1rem, 2vw, 1.8rem);
+      margin: 0;
+      padding: 0 0 clamp(3.5rem, 7vw, 7rem);
+      list-style: none;
+    }
+
+    .project-card {
+      min-width: 0;
+    }
+
+    .project-card[hidden] {
+      display: none;
+    }
+
+    .project-link {
+      display: grid;
+      gap: 0.8rem;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .project-media {
+      position: relative;
+      margin: 0;
+      aspect-ratio: 4 / 3;
+      background: var(--soft);
+      overflow: hidden;
+    }
+
+    .project-card:nth-child(4n + 2) .project-media {
+      aspect-ratio: 3 / 4;
+    }
+
+    .project-card:nth-child(5n + 4) .project-media {
+      aspect-ratio: 1 / 1;
+    }
+
+    .project-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 420ms ease, opacity 420ms ease;
+    }
+
+    .project-media::after {
+      content: "Ver";
+      position: absolute;
+      right: 0.8rem;
+      bottom: 0.8rem;
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border: 1px solid rgba(255, 255, 255, 0.74);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.72);
+      color: #111111;
+      font-size: 0.74rem;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    .project-link:hover img,
+    .project-link:focus-visible img {
+      transform: scale(1.035);
+      opacity: 0.86;
+    }
+
+    .project-link:hover .project-media::after,
+    .project-link:focus-visible .project-media::after {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .project-title {
+      margin: 0;
+      font-size: clamp(0.92rem, 0.9rem + 0.14vw, 1.02rem);
+      line-height: 1.2;
+      font-weight: 600;
+    }
+
+    .project-meta,
+    .project-credit {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.8rem;
+      line-height: 1.35;
+    }
+
+    .project-credit {
+      color: #3f3f3f;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 0.7fr 1fr;
+      gap: clamp(1.5rem, 5vw, 5rem);
+      padding: clamp(2.7rem, 6vw, 6rem) 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .services h2,
+    .contact h2 {
+      margin: 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.45rem, 2.1vw, 2.25rem);
+      line-height: 1.05;
+      font-weight: 400;
+    }
+
+    .service-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      border-top: 1px solid var(--line);
+    }
+
+    .service-list li {
+      padding: 1.1rem 0;
+      border-bottom: 1px solid var(--line);
+      color: #222222;
+      font-size: clamp(0.94rem, 0.9rem + 0.16vw, 1.04rem);
+    }
+
+    .service-list li:nth-child(odd) {
+      padding-right: 1rem;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 0.7fr 1fr;
+      gap: clamp(1.5rem, 5vw, 5rem);
+      padding: clamp(2.7rem, 6vw, 6rem) 0;
+    }
+
+    .contact-links {
+      display: grid;
+      gap: 0.9rem;
+      align-content: start;
+      font-size: clamp(0.96rem, 1vw, 1.12rem);
+    }
+
+    .contact-links a {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid var(--line);
+      padding: 0.35rem 0 0.9rem;
+      text-decoration: none;
+    }
+
+    .contact-links a::after {
+      content: ">";
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .contact-links a:hover,
+    .contact-links a:focus-visible {
+      color: var(--focus);
+    }
+
+    .site-footer {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+      padding: 1.4rem 0 2rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.78rem;
+    }
+
+    dialog {
+      width: min(1100px, calc(100% - 32px));
+      max-height: min(88vh, 900px);
+      border: 0;
+      padding: 0;
+      background: #ffffff;
+      color: var(--ink);
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
+    }
+
+    dialog::backdrop {
+      background: rgba(20, 20, 20, 0.55);
+      backdrop-filter: blur(5px);
+    }
+
+    .dialog-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr);
+      max-height: min(88vh, 900px);
+      overflow: hidden;
+    }
+
+    .dialog-copy {
+      padding: clamp(1.2rem, 3vw, 2.2rem);
+      border-right: 1px solid var(--line);
+    }
+
+    .dialog-copy h2 {
+      margin: 0 0 1rem;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: clamp(1.35rem, 2.4vw, 2.05rem);
+      line-height: 1.06;
+      font-weight: 400;
+    }
+
+    .dialog-copy p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .dialog-copy p + p {
+      margin-top: 0.8rem;
+      color: #303030;
+    }
+
+    .dialog-close {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: #ffffff;
+      color: #111111;
+      cursor: pointer;
+      font: inherit;
+      margin-top: 1.5rem;
+      min-height: 38px;
+      padding: 0.45rem 0.9rem;
+    }
+
+    .dialog-close:hover,
+    .dialog-close:focus-visible {
+      border-color: #111111;
+    }
+
+    .dialog-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      overflow: auto;
+      background: var(--line);
+    }
+
+    .dialog-gallery img {
+      width: 100%;
+      height: 100%;
+      min-height: 230px;
+      object-fit: cover;
+      background: var(--soft);
+    }
+
+    .dialog-gallery img:first-child {
+      grid-column: 1 / -1;
+      max-height: 620px;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 980px) {
+      .intro,
+      .services,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .intro {
+        gap: 2rem;
+      }
+
+      h1 {
+        max-width: 13ch;
+      }
+
+      .intro-copy {
+        max-width: 48rem;
+      }
+
+      .section-head {
+        display: grid;
+        align-items: start;
+      }
+
+      .section-head p {
+        max-width: 48rem;
+        text-align: left;
+      }
+
+      .project-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .dialog-shell {
+        grid-template-columns: 1fr;
+        overflow: auto;
+      }
+
+      .dialog-copy {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 680px) {
+      .header-inner {
+        width: min(100% - 24px, var(--max));
+        min-height: auto;
+        padding: 0.85rem 0;
+        align-items: flex-start;
+      }
+
+      .brand img {
+        width: 36px;
+        height: 36px;
+      }
+
+      .brand-text {
+        display: none;
+      }
+
+      .nav {
+        flex-wrap: wrap;
+        gap: 0.55rem 1rem;
+        font-size: 0.8rem;
+      }
+
+      main,
+      .site-footer {
+        width: min(100% - 24px, var(--max));
+      }
+
+      .intro {
+        padding-top: 3rem;
+      }
+
+      .project-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .project-card:nth-child(n) .project-media {
+        aspect-ratio: 4 / 3;
+      }
+
+      .project-media::after {
+        opacity: 1;
+        transform: none;
+        width: 38px;
+        height: 38px;
+      }
+
+      .service-list {
+        grid-template-columns: 1fr;
+      }
+
+      .service-list li:nth-child(odd) {
+        padding-right: 0;
+      }
+
+      .dialog-gallery {
+        grid-template-columns: 1fr;
+      }
+
+      .dialog-gallery img {
+        min-height: 210px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#work">Saltar al portafolio</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Arch-palmanzar">
+        <img src="../logo.png" data-fallback="https://palmanzar.com/logo.png" alt="Arch-palmanzar logo">
+          <span class="brand-text">
+          <strong>Arch-palmanzar</strong>
+          <span class="tagline">Arquitectura y visualización</span>
+        </span>
+      </a>
+
+      <nav class="nav" aria-label="Principal">
+        <a href="#work">Obras</a>
+        <a href="#services">Servicios</a>
+        <a href="#contact">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="intro" aria-labelledby="intro-title">
+      <div>
+        <p class="eyebrow">Portafolio seleccionado</p>
+        <h1 id="intro-title">Arch Palmanzar</h1>
+      </div>
+      <div class="intro-copy">
+        <p>Diseños arquitectónicos, renders, fotogrametría, recorridos virtuales y construcciones civiles.</p>
+        <p>Arquitectura residencial y colaboraciones desarrolladas entre República Dominicana y Estados Unidos.</p>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="work-title">
+      <div class="section-head">
+        <h2 id="work-title">Obras</h2>
+        <p>Una selección de villas, residencias y desarrollos con imágenes de proyecto y datos principales.</p>
+      </div>
+
+      <div class="filter-bar" aria-label="Filtrar obras">
+        <button type="button" data-filter="all" aria-pressed="true">Todas</button>
+        <button type="button" data-filter="jarabacoa" aria-pressed="false">Jarabacoa</button>
+        <button type="button" data-filter="la-vega" aria-pressed="false">La Vega</button>
+        <button type="button" data-filter="usa" aria-pressed="false">Estados Unidos</button>
+      </div>
+
+      <ul class="project-grid">
+        <li class="project-card" data-category="jarabacoa" data-folder="BDC" data-images="1.jpg,2.jpg,3.jpg,4.jpg" data-title="Brisas del Crucero" data-meta="2024 / Jarabacoa, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador autorizado: Aaron Álvarez Almánzar.">
+          <a class="project-link" href="#brisas-del-crucero" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/BDC/1.jpg" data-fallback="https://palmanzar.com/iGalery/BDC/1.jpg" alt="Brisas del Crucero" loading="eager" fetchpriority="high">
+            </figure>
+            <h3 class="project-title">Brisas del Crucero</h3>
+            <p class="project-meta">2024 / Jarabacoa, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador autorizado: Aaron Álvarez Almánzar.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="jarabacoa" data-folder="VP1" data-images="1.jpg,2.jpg,3.jpg,4.jpg,5.jpg,6.jpg" data-title="Villa Pedregal I" data-meta="2024 / Jarabacoa, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador: Manuel Suárez - Sucasgroup.">
+          <a class="project-link" href="#villa-pedregal-i" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/VP1/1.jpg" data-fallback="https://palmanzar.com/iGalery/VP1/1.jpg" alt="Villa Pedregal I" loading="eager">
+            </figure>
+            <h3 class="project-title">Villa Pedregal I</h3>
+            <p class="project-meta">2024 / Jarabacoa, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: Manuel Suárez - Sucasgroup.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="jarabacoa" data-folder="VP2" data-images="1.jpg,2.jpg,3.jpg,4.jpg" data-title="Villa Pedregal II" data-meta="2025 / Jarabacoa, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador: Manuel Suárez - Sucasgroup.">
+          <a class="project-link" href="#villa-pedregal-ii" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/VP2/1.jpg" data-fallback="https://palmanzar.com/iGalery/VP2/1.jpg" alt="Villa Pedregal II" loading="eager">
+            </figure>
+            <h3 class="project-title">Villa Pedregal II</h3>
+            <p class="project-meta">2025 / Jarabacoa, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: Manuel Suárez - Sucasgroup.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="jarabacoa" data-folder="VM" data-images="1.jpg,2.jpg,3.jpg,4.jpg,5.jpg" data-title="Villa Marcos" data-meta="2024 / Jarabacoa, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador: Napoleon Núñez Almánzar.">
+          <a class="project-link" href="#villa-marcos" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/VM/1.jpg" data-fallback="https://palmanzar.com/iGalery/VM/1.jpg" alt="Villa Marcos" loading="lazy">
+            </figure>
+            <h3 class="project-title">Villa Marcos</h3>
+            <p class="project-meta">2024 / Jarabacoa, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: Napoleon Núñez Almánzar.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="usa" data-folder="TRiJC" data-images="1.jpg,2.jpg,3.jpg,4.jpg,5.jpg,6.jpg" data-title="The Revolution in Jersey City" data-meta="2023 / New Jersey, Estados Unidos" data-credit="Diseño: Pedro Almánzar. Colaborador: JBT Developers.">
+          <a class="project-link" href="#the-revolution-in-jersey-city" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/TRiJC/1.jpg" data-fallback="https://palmanzar.com/iGalery/TRiJC/1.jpg" alt="The Revolution in Jersey City" loading="lazy">
+            </figure>
+            <h3 class="project-title">The Revolution in Jersey City</h3>
+            <p class="project-meta">2023 / New Jersey, Estados Unidos</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: JBT Developers.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="usa" data-folder="CG" data-images="1.jpg,2.jpg" data-title="Casa Gloria" data-meta="2023 / California, Estados Unidos" data-credit="Diseño: Pedro Almánzar.">
+          <a class="project-link" href="#casa-gloria" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/CG/1.jpg" data-fallback="https://palmanzar.com/iGalery/CG/1.jpg" alt="Casa Gloria" loading="lazy">
+            </figure>
+            <h3 class="project-title">Casa Gloria</h3>
+            <p class="project-meta">2023 / California, Estados Unidos</p>
+            <p class="project-credit">Diseño: Pedro Almánzar.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="la-vega" data-folder="RHCSA1" data-images="1.jpg,2.jpg,3.jpg,4.jpg" data-title="Residencial Hdez - Casa A1" data-meta="2022 / La Vega, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador: Yesenia Hernández.">
+          <a class="project-link" href="#residencial-hdez-casa-a1" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/RHCSA1/1.jpg" data-fallback="https://palmanzar.com/iGalery/RHCSA1/1.jpg" alt="Residencial Hdez - Casa A1" loading="lazy">
+            </figure>
+            <h3 class="project-title">Residencial Hdez - Casa A1</h3>
+            <p class="project-meta">2022 / La Vega, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: Yesenia Hernández.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="jarabacoa" data-folder="VE" data-images="1.jpg,2.jpg,3.jpg,4.jpg,5.jpg,6.jpg" data-title="Villa Ensueño" data-meta="2014 / Jarabacoa, República Dominicana" data-credit="Diseño: Pedro Almánzar.">
+          <a class="project-link" href="#villa-ensueno" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/VE/1.jpg" data-fallback="https://palmanzar.com/iGalery/VE/1.jpg" alt="Villa Ensueño" loading="lazy">
+            </figure>
+            <h3 class="project-title">Villa Ensueño</h3>
+            <p class="project-meta">2014 / Jarabacoa, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="la-vega" data-folder="RHCSB19" data-images="1.jpg,2.jpg" data-title="Residencial Hdez - Casa B19" data-meta="2021 / La Vega, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador: Juan de Jesús Núñez.">
+          <a class="project-link" href="#residencial-hdez-casa-b19" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/RHCSB19/1.jpg" data-fallback="https://palmanzar.com/iGalery/RHCSB19/1.jpg" alt="Residencial Hdez - Casa B19" loading="lazy">
+            </figure>
+            <h3 class="project-title">Residencial Hdez - Casa B19</h3>
+            <p class="project-meta">2021 / La Vega, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: Juan de Jesús Núñez.</p>
+          </a>
+        </li>
+
+        <li class="project-card" data-category="la-vega" data-folder="CEP" data-images="1.jpg,2.jpg,3.jpg,4.jpg" data-title="Casa El Pino" data-meta="2022 / La Vega, República Dominicana" data-credit="Diseño: Pedro Almánzar. Colaborador: Napoleon Núñez Almánzar.">
+          <a class="project-link" href="#casa-el-pino" aria-haspopup="dialog">
+            <figure class="project-media">
+              <img src="../iGalery/CEP/1.jpg" data-fallback="https://palmanzar.com/iGalery/CEP/1.jpg" alt="Casa El Pino" loading="lazy">
+            </figure>
+            <h3 class="project-title">Casa El Pino</h3>
+            <p class="project-meta">2022 / La Vega, República Dominicana</p>
+            <p class="project-credit">Diseño: Pedro Almánzar. Colaborador: Napoleon Núñez Almánzar.</p>
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="services" id="services" aria-labelledby="services-title">
+      <h2 id="services-title">Servicios</h2>
+      <ul class="service-list">
+        <li>Diseño arquitectónico</li>
+        <li>Render arquitectónico</li>
+        <li>Fotogrametría</li>
+        <li>Recorridos virtuales</li>
+        <li>Construcciones civiles</li>
+        <li>Colaboracion de proyecto</li>
+      </ul>
+    </section>
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <h2 id="contact-title">Contacto</h2>
+      <div class="contact-links">
+        <a href="https://www.instagram.com/archpalmanzarr">Instagram</a>
+        <a href="https://wa.me/18492090352/?text=Hola%2C%20estoy%20interesado%20en%20sus%20servicios.%20Por%20favor%2C%20podr%C3%ADa%20proporcionarme%20m%C3%A1s%20informaci%C3%B3n%3F">WhatsApp</a>
+        <a href="mailto:palmanzarr@gmail.com">palmanzarr@gmail.com</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span>Arch-palmanzar</span> / <span>&copy; 2026 Enrique Eusebio Landestoy</span>
+  </footer>
+
+  <dialog id="project-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-shell">
+      <div class="dialog-copy">
+        <h2 id="dialog-title"></h2>
+        <p id="dialog-meta"></p>
+        <p id="dialog-credit"></p>
+        <button class="dialog-close" type="button">Cerrar</button>
+      </div>
+      <div class="dialog-gallery" id="dialog-gallery"></div>
+    </div>
+  </dialog>
+
+  <script>
+    const hostedRoot = "https://palmanzar.com";
+    const dialog = document.getElementById("project-dialog");
+    const dialogTitle = document.getElementById("dialog-title");
+    const dialogMeta = document.getElementById("dialog-meta");
+    const dialogCredit = document.getElementById("dialog-credit");
+    const dialogGallery = document.getElementById("dialog-gallery");
+    const closeButton = dialog.querySelector(".dialog-close");
+    let lastActiveLink = null;
+
+    function fallbackImage(image) {
+      const fallback = image.dataset.fallback;
+      if (!fallback || image.dataset.fallbackLoaded) return;
+      image.dataset.fallbackLoaded = "true";
+      image.src = fallback;
+    }
+
+    document.querySelectorAll("img[data-fallback]").forEach((image) => {
+      image.addEventListener("error", () => fallbackImage(image), { once: true });
+    });
+
+    document.querySelectorAll(".project-link").forEach((link) => {
+      link.addEventListener("click", (event) => {
+        event.preventDefault();
+        const card = link.closest(".project-card");
+        lastActiveLink = link;
+        dialogTitle.textContent = card.dataset.title;
+        dialogMeta.textContent = card.dataset.meta;
+        dialogCredit.textContent = card.dataset.credit;
+        dialogGallery.replaceChildren();
+
+        card.dataset.images.split(",").forEach((file, index) => {
+          const image = document.createElement("img");
+          const localSrc = `../iGalery/${card.dataset.folder}/${file}`;
+          image.src = localSrc;
+          image.dataset.fallback = `${hostedRoot}/iGalery/${card.dataset.folder}/${file}`;
+          image.alt = `${card.dataset.title} - imagen ${index + 1}`;
+          image.loading = index === 0 ? "eager" : "lazy";
+          image.addEventListener("error", () => fallbackImage(image), { once: true });
+          dialogGallery.append(image);
+        });
+
+        if (typeof dialog.showModal === "function") {
+          dialog.showModal();
+        } else {
+          dialog.setAttribute("open", "");
+        }
+      });
+    });
+
+    closeButton.addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+    dialog.addEventListener("close", () => {
+      if (lastActiveLink) lastActiveLink.focus();
+    });
+
+    document.querySelectorAll("[data-filter]").forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        document.querySelectorAll("[data-filter]").forEach((item) => {
+          item.setAttribute("aria-pressed", String(item === button));
+        });
+        document.querySelectorAll(".project-card").forEach((card) => {
+          card.hidden = filter !== "all" && card.dataset.category !== filter;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
